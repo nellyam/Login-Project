@@ -1,8 +1,7 @@
-// controllers.auth.js
 // pwd 12345
 
 const mysql = require("mysql");
-const jwt =   require("jsonwebtoken"); // module, which is used to generate and verify JWT tokens.
+const jwt =   require("jsonwebtoken"); 
 const bcrypt = require("bcryptjs");
 const {promisify} = require("util");
 
@@ -39,25 +38,13 @@ exports.login = async (req, res) => {
         if(!(await bcrypt.compare(password, results[0].password)) ) {
              return res.status(401).render("login", {
                 message: "Email or password is incorrect"
-                // in this case only the pwd is incorrect
-                // but for security reasons we do not provide that info
+                
             })
         }
         else {
             let id = results[0].id;
-             // we can create a unique token for every logged in user
-             // we generate a token in a synchronous way
-
-                                //payload  secretOrPrivateKey     options 
+  
             const token = jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN});
-           // synchronous way cause no callback, Returns the JsonWebToken as string
-            /**
-          * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-          * eyJpZCI6NSwiaWF0IjoxNjQ3MjQ4MTI5LCJleHAiOjE2NTUwMjQxMjl9.
-          * 18_e-6L8AeJCFHXAglTdyr53QZMYp9JGpDVfpet-yYQ */   
-
-          // in js if you have an object with the same key and value you can shorten it
-           // {id: id} => {id}
            
 
            const cookieOptions = {
@@ -90,8 +77,8 @@ exports.register = (req, res) => {
         })
     }
 
-    //db.connect();
-                                                          // results comes as an array
+
+                                                         
     db.query("SELECT email FROM users WHERE email = ?", [email], async (err, results) => {
         if(err) {
             console.log(err);
@@ -112,7 +99,7 @@ exports.register = (req, res) => {
             if(err) {
                 console.log(err);
             } else {
-               // console.log(results);
+            
                return res.render("register", {
                     "message": "User registered"
                 })
@@ -126,7 +113,6 @@ exports.isLoggedIn = async (req, res, next) => {
     if(req.cookies.jwt) {
         try {
 
-            //version 1  const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
              const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET); // syncrchronous way: 
          /*  version 2, asyncrchronous way: 
               let decoded = "";
