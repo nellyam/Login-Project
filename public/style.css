@@ -1,0 +1,51 @@
+
+body {
+  background: teal;
+}
+
+nav {
+  background-color: indianred;
+  background-color: #563d7c;
+  color: #fff;
+  padding: 15px 60px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h4 {
+  margin: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  color: white;
+  margin-right: 20px;
+  margin-bottom: 0;
+  padding-left: 0;
+  align-items: center;
+}
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul a {
+  color: inherit;
+  font-weight: bold;
+}
+nav ul a:hover {
+  color: indianred;
+  text-decoration: none;
+}
+
+img {
+  width: 70%;
+  height: auto;
+}
+
+.avatar-ctn {
+  background-color: indianred;
+  text-align: center;
+}
